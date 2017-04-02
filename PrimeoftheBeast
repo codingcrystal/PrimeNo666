@@ -1,0 +1,17 @@
+//What are all the prime numbers under 666?
+
+//Create an int ArrayList called X.
+//Need to look up how to because I've forgotten.
+
+X.add(2);
+for(int i = 3; i < 666; i++) {
+   boolean prime = 1;
+   for (int j = i-1; j > 1; j--)
+     if (i%j != 0)
+       prime = 0;
+   if (prime)
+     X.add(i);
+}
+
+//print ArrayList. I don't know how to print 
+//on github, but I'll try some things out.   
