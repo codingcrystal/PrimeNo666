@@ -3,49 +3,65 @@
 //HELP ME: I have no idea how to compile or 
 //run a program on github.
 
-//No longer using an ArrayList. I'm gonna use 
-//an array of size 666, and it's okay that it 
-//won't be completely filled because it will 
-//be a temp array. The real array will be made 
-//after the loop with a size of the counter.
 
-int[] temp = new int[666];
-int[] primeNo;
-int count = 1;
-
-temp[0] = 2;
-
-//this for loop only checks integers between 3 and 666
-for(int i = 3; i < 666; i++) {
-   boolean prime = 1;
+      //No longer using an ArrayList. I'm gonna use 
+      //an array of size 666, and it's okay that it 
+      //won't be completely filled because it will 
+      //be a temp array. The real array will be made 
+      //after the loop with a size of the counter.
    
-   for (int j = i-1; j > 1; j--)
-      if (i%j == 0)  //checks if an integer is 
-            //divible by any number less than 
-            //itself but more than 1
-         prime = 0; //if it is divible by any 
-            //other number, it is not a prime 
-            //and is therefore false
+      int[] temp = new int[666];
+      int[] primeNo;
+      int count = 1;
    
-   //We've now checked whether the given 
-   //integer, i, is prime.
+      temp[0] = 2;
    
-   if (prime) { 
-      temp[count] = i;
-      count++;
+      //this for loop only checks integers between 3 and 666
+      for(int i = 3; i < 666; i++) {
+         boolean prime = 1;
+         
+         for (int j = i-1; j > 1; j--)
+            if (i%j == 0)  //checks if an integer is 
+                  //divible by any number less than 
+                  //itself but more than 1
+               prime = 0; //if it is divible by any 
+                  //other number, it is not a prime 
+                  //and is therefore false
+         
+         //We've now checked whether the given 
+         //integer, i, is prime.
+         
+         if (prime) { 
+            temp[count] = i;
+            count++;
+         }
+      }
+      
+      primeNo = new int[count];
+      
+      //fill primeNo with values in temp array
+      for (int i = 0; i < count; i++)
+         primeNo[i] = temp[i];
+      //We now have an array, primeNo, filled with every 
+      //prime number between 1 and 666 with no nulls. One 
+      //is NOT a prime number. Our temp array is now 
+      //superfluous and can be overwritten and/or ignored.
+      
+      //print primeNo array
+      
+      String listPrimes;
+      
+      for (int i = 0; i < primeNo.length()-1; i++) {
+         String input = String.valueOf(primeNo[i]);
+         listPrimes += input + ", ";
+      }
+      
+      //The following only works because we know the 
+      //length of the array, 666, is more than 0.
+      listPrimes += "& " + String.valueOf(primeNo[primeNo.length()-1]);
+      
+      //Now all we need to do is print listPrimes
+      //I don't know how to print on github, but I'll 
+      //try some things out.
    }
 }
-
-primeNo = new int[count];
-
-//fill primeNo with values in temp array
-for (int i = 0; i < count; i++)
-   primeNo[i] = temp[i];
-//We now have an array, primeNo, filled with every 
-//prime number between 1 and 666 with no nulls. One 
-//is NOT a prime number. Our temp array is now 
-//superfluous and can be overwritten and/or ignored.
-
-//print primeNo array
-//I don't know how to print on github, but I'll 
-//try some things out.
