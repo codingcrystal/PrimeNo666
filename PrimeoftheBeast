@@ -60,7 +60,20 @@
       //length of the array, 666, is more than 0.
       listPrimes += "& " + String.valueOf(primeNo[primeNo.length()-1]);
       
-      //Now all we need to do is print listPrimes
+      String format(String text) {
+        //for every x amount of characters add a new line
+        String finalPrint = "";
+        
+        //check for space characters; when the index of a space is 
+        //first over a multiple of x, insert a new line after the space 
+        //before; check how that works with long words
+        
+        return finalPrint;
+      }
+      
+      String listPrimesFormatted = format(listPrimes)
+      
+      //Now all we need to do is print listPrimesFormatted
       //I don't know how to print on github, but I'll 
       //try some things out.
    }
