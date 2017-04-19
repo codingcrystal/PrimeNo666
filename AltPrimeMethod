@@ -60,7 +60,22 @@ int[] prime(const int MAX) {
     col = ++start[row];
     
     while (start != end) {
+        for (int i = row+1; i < mult.length(); i++)
+            if (col >= end[row] || start[i] < end[i] && mult[row][col] > mult[i][start[i]])
+                addIt = false;
         
+        if (addIt) {
+            if (mult[row][col] != check[size-1])
+                check[size++] = mult[row][col];
+            col = ++start[row];
+            
+            while (row > 0)
+                col = start[--row];
+        }
+        else
+            col = start[++row];
+        
+        addIt = true;
     }
     
     return finalArr; //returns null at the moment
