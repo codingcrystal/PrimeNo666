@@ -1,0 +1,119 @@
+//A prime number is a postive integer with only 2 factors, '1' and the integer itself. 
+//The number '1' is not a private no. because it only has 1 factor. The number '0' is 
+//not a prime number because it is not positive.
+
+int[] prime() { //returns an array filled with the first 10 prime integers
+    int[] arr =  {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};
+    
+    return arr;
+}
+
+int[] prime(const int MAX) {
+    int[] temp = new int[max - 1], tenprime = prime(), moreprime, finalArr;
+    int size = 0;
+    const int MAXFACT = floor(sqrt(MAX));
+    
+    if (MAXFACT > tenprime[10-1])
+        moreprime = prime(MAXFACT); //recursive method; because the value is always 
+                                    //decreasing until 29 or less, it shouldn't be an 
+                                    //infinite loop
+    else
+        moreprime = tenprime;
+    
+    //fill temp array
+    while (size < moreprime.length() && moreprime[size] <= MAXFACT) {
+        temp[size] = moreprime[size];
+        size++;
+    }
+    temp[MAX-1] = size;
+    //temp array filled with all the possible prime factors up to the 
+    //maximum possible factor, MAXFACT. The last index is filled with the actual 
+    //size used in the temp array.
+    
+    //fill mult array
+    int[][] mult = new int[temp[temp.length()-1] - 1][MAX/4]; //first column is filled with temp array.
+    
+    for (int i = 0; i < mult.length(); i++) {
+        for (int j = 1; temp[i+1]*j <= MAX; j+=2) { //only checking odd no.s since we 
+                                                    //already know the one even no. 
+                                                    //that is prime
+            mult[i][j/2] = temp[i+1]*j;
+            mult[i][MAX/4-1] = j/2+1;   //this hold the size of the array and continue 
+                                        //to update it
+        }
+    }
+    //mult array filled with all the nonprime numbers (multiples) up to MAX
+    
+    //fill check array
+    int[] start = new int[mult.length()], end = start;
+    
+    for (int i = 0; i < mult.length(); i++) {
+        start[i] = 1; //starting index point for each row
+        end[i] = mult[i][MAX/4-1]; //end index point (noninclusive) for each row
+    }
+    
+    int[] check = new int[(end[0]-1)*mult.length()];
+    boolean addIt = true;
+    int row = 0, col = start[row], size = 0;
+    
+    check[size++] = mult[row][col];
+    col = ++start[row];
+    
+    while (!Arrays.equals(start, end)) {
+        for (int i = row+1; i < mult.length(); i++)
+            if (col >= end[row] || start[i] < end[i] && mult[row][col] > mult[i][start[i]])
+                addIt = false;
+        
+        if (addIt) {
+            if (mult[row][col] != check[size-1])
+                check[size++] = mult[row][col];
+            col = ++start[row];
+            
+            while (row > 0)
+                col = start[--row];
+        }
+        else
+            col = start[++row];
+        
+        addIt = true;
+    }
+    //check array filled with all the values in mult, without any duplicates, sorted 
+    //from least to greatest in a single array
+    
+    //create and fill num array
+    int[] num = new int[(MAX + 1)/2];
+    
+    if (!num.length())
+        num[0] = 2;
+    
+    for (int i = 1; i < num.length(); i++)
+        num[i] = 2*i + 1; //odd numbers after '2'
+    //num array filled with every positive integer up to and including MAX, however 
+    //excluding '1'
+    
+    //we can now compare check[] and num[]
+    size = 0; //now using 'size' for our 'finalArr'
+    
+    int index = 0;
+    
+    for (int i = 0; i < num.length(); i++) {
+        if (num[i] != check[index])
+            num[size++] = num[i];
+        else
+            index++;
+    }
+    
+    num[num.length()-1] = size; //I'm only storing these size values because I'm neurotic, 
+                                //not because I've really needed; need to test how this 
+                                //affects MAX when it's a small integer
+    //num array is filled with all the prime numbers up to and including MAX
+    
+    //fill finalArr then return it
+    finalArr = new int[size];
+    
+    for (int i = 0; i < size; i++)
+        finalArr[i] = num[i];
+    //finalArr is the right size and filled with the prime no.s we need; now return it
+    
+    return finalArr;
+}
