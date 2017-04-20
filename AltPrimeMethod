@@ -59,7 +59,7 @@ int[] prime(const int MAX) {
     check[size++] = mult[row][col];
     col = ++start[row];
     
-    while (start != end) {
+    while (!Arrays.equals(start, end)) {
         for (int i = row+1; i < mult.length(); i++)
             if (col >= end[row] || start[i] < end[i] && mult[row][col] > mult[i][start[i]])
                 addIt = false;
@@ -77,6 +77,43 @@ int[] prime(const int MAX) {
         
         addIt = true;
     }
+    //check array filled with all the values in mult, without any duplicates, sorted 
+    //from least to greatest in a single array
     
-    return finalArr; //returns null at the moment
+    //create and fill num array
+    int[] num = new int[(MAX + 1)/2];
+    
+    if (!num.length())
+        num[0] = 2;
+    
+    for (int i = 1; i < num.length(); i++)
+        num[i] = 2*i + 1; //odd numbers after '2'
+    //num array filled with every positive integer up to and including MAX, however 
+    //excluding '1'
+    
+    //we can now compare check[] and num[]
+    size = 0; //now using 'size' for our 'finalArr'
+    
+    int index = 0;
+    
+    for (int i = 0; i < num.length(); i++) {
+        if (num[i] != check[index])
+            num[size++] = num[i];
+        else
+            index++;
+    }
+    
+    num[num.length()-1] = size; //I'm only storing these size values because I'm neurotic, 
+                                //not because I've really needed; need to test how this 
+                                //affects MAX when it's a small integer
+    //num array is filled with all the prime numbers up to and including MAX
+    
+    //fill finalArr then return it
+    finalArr = new int[size];
+    
+    for (int i = 0; i < size; i++)
+        finalArr[i] = num[i];
+    //finalArr is the right size and filled with the prime no.s we need; now return it
+    
+    return finalArr;
 }
